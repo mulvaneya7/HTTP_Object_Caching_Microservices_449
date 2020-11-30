@@ -1,11 +1,26 @@
-Project 2 : Microservices  
+Project 6 : HTTP & Object Caching  
 author    : Alex Mulvaney
 class     : CPSC449 - Back-end Engineering
 -------------------------------------------
 
+procfile contents: 
+    users: env FLASK_APP=users_microservice.py flask run -p $PORT
+    timelines: env FLASK_APP=timelines_microservice.py flask run -p $PORT
+    app: env FLASK_APP=flaskr flask run -p $PORT  
+
+.env contents:  
+    FLASK_APP=flaskr  
+    FLASK_ENV=development  
+    debug=True    
+    APP_CONFIG=routes.cfg  
+
 commands:
-    flask init     #creates the database and adds two Users(cannot authenticate these two users because password_hash isnt called on them, you can authenticate newly created users though)
+    flask init     #creates the database and adds two Users
     foreman start  #spins up the microservices
+
+timelines_microservice Caching(caching_images.pdf for images):    
+    -HTTP Caching: requests made to the "/timelines/all" will cache for 5min returning 304 until 'last-modified' is older than 5min  
+    -Object Caching: home timelines will cache post data from the database for 2min before recontacting the db for the same data  
 
 
 users_microservice.py  
